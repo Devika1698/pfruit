@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Play, Film, Camera, Edit, Award, CheckCircle, ArrowRight, Star, Clock, Users } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import movie from "@/assets/cmaera.jpeg";
 
@@ -382,8 +381,6 @@ const MoviesService = () => {
                     </div>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 };

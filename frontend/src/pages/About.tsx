@@ -3,7 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Users, Award, Camera, Heart, Star, CheckCircle, ArrowRight, Play, Globe } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import Dir1 from "@/assets/images/dir1.jpg";
 import Dir2 from "@/assets/images/dir2.jpg";
@@ -244,7 +243,6 @@ const About = () => {
                     </div>
                 </div>
             </section>
-            <Footer />
         </div>
     );
 };

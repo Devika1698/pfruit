@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Heart, Camera, Film, Clock, Star, Phone, Mail, MapPin, Sparkles } from "lucide-react";
 
@@ -40,7 +39,7 @@ const PFWedding = () => {
     const packages = [
         {
             name: "Essential",
-            price: "$1,999",
+            price: "₹25,000",
             duration: "6 hours",
             features: [
                 "Pre-wedding consultation",
@@ -52,7 +51,7 @@ const PFWedding = () => {
         },
         {
             name: "Premium",
-            price: "$2,999",
+            price: "₹45,000",
             duration: "8 hours",
             features: [
                 "Everything in Essential",
@@ -66,7 +65,7 @@ const PFWedding = () => {
         },
         {
             name: "Luxury",
-            price: "$4,999",
+            price: "₹75,000",
             duration: "Full day",
             features: [
                 "Everything in Premium",
@@ -136,13 +135,13 @@ const PFWedding = () => {
                 </div>
 
                 <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4 animate-fade-in">
-                    <div className="flex items-center justify-center mb-8 group">
+                    {/* <div className="flex items-center justify-center mb-8 group">
                         <Heart className="w-10 h-10 mr-4 text-yellow-400 transition-all duration-300 group-hover:scale-125 group-hover:text-yellow-300" />
                         <h1 className="text-6xl md:text-8xl font-bold bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">
                             PF Wedding
                         </h1>
                         <Heart className="w-10 h-10 ml-4 text-yellow-400 transition-all duration-300 group-hover:scale-125 group-hover:text-yellow-300" />
-                    </div>
+                    </div> */}
 
                     {/* Wedding Services Banner */}
                     <div className="bg-gradient-to-r from-yellow-500/20 via-yellow-400/30 to-yellow-500/20 backdrop-blur-sm border border-yellow-400/30 rounded-2xl p-8 mb-8 opacity-0 animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'forwards' }}>
@@ -175,7 +174,7 @@ const PFWedding = () => {
                             View Our Portfolio
                             <Camera className="ml-3 w-6 h-6" />
                         </Button>
-                        <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-black px-10 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 backdrop-blur-sm">
+                        <Button size="lg" variant="outline" className="border-2 border-white text-black hover:bg-white hover:text-black px-10 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 backdrop-blur-sm">
                             Book Consultation
                             <Heart className="ml-3 w-6 h-6" />
                         </Button>
@@ -295,7 +294,12 @@ const PFWedding = () => {
                     </Carousel>
 
                     <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                        <Button size="lg" variant="outline" className="border-rose-500 text-rose-600 hover:bg-rose-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className="border-rose-500 text-rose-600 hover:bg-rose-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                            onClick={() => window.location.href = '/gallery'}
+                        >
                             View Full Portfolio
                         </Button>
                     </div>
@@ -400,9 +404,9 @@ const PFWedding = () => {
                                                 className="mt-1 w-full h-10 px-3 py-2 text-sm rounded-md border border-input bg-background transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
                                             >
                                                 <option value="">Select a package</option>
-                                                <option value="essential">Essential - $1,999</option>
-                                                <option value="premium">Premium - $2,999</option>
-                                                <option value="luxury">Luxury - $4,999</option>
+                                                <option value="essential">Essential - ₹25,000</option>
+                                                <option value="premium">Premium - ₹45,000</option>
+                                                <option value="luxury">Luxury - ₹75,000</option>
                                                 <option value="custom">Custom Package</option>
                                             </select>
                                         </div>
@@ -440,7 +444,7 @@ const PFWedding = () => {
                                 <CardContent className="space-y-4">
                                     <div className="flex items-center group/item">
                                         <Phone className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
-                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">+1 (555) 123-4567</span>
+                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">+91 9876543210</span>
                                     </div>
                                     <div className="flex items-center group/item">
                                         <Mail className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
@@ -448,7 +452,7 @@ const PFWedding = () => {
                                     </div>
                                     <div className="flex items-center group/item">
                                         <MapPin className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
-                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">Los Angeles, CA</span>
+                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">Kerala</span>
                                     </div>
                                 </CardContent>
                             </Card>
@@ -485,8 +489,6 @@ const PFWedding = () => {
                     </div>
                 </div>
             </section>
-
-            <Footer />
         </div>
     );
 };

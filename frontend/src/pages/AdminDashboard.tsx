@@ -25,7 +25,6 @@ import {
     Download
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const AdminDashboard = () => {
@@ -415,7 +414,6 @@ const AdminDashboard = () => {
                 </div>
             </div>
 
-            <Footer />
         </div>
     );
 };

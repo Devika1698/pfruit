@@ -14,6 +14,7 @@ import AdvertisingService from "./pages/AdService";
 import AdminDashboard from "./pages/AdminDashboard";
 import ScrollToTop from "./components/ScrollToTop";
 import RentFormPage from "./components/RentalForm";
+import GalleryPage from "./pages/GalleryPage";
 // import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/rent-form" element={<RentFormPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/dashboard" element={<AdminDashboard />} />
+            <Route path="/gallery" element={<GalleryPage />} />
             {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </RootLayout>

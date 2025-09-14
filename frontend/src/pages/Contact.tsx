@@ -18,7 +18,7 @@ import {
     ArrowRight
 } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
+
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { useToast } from "@/hooks/useToast";
 
@@ -64,7 +64,7 @@ const Contact = () => {
         {
             icon: Phone,
             title: "Phone",
-            info: "+1 (555) 123-4567",
+            info: "+91 9876543210",
             subtitle: "Call us anytime",
             color: "text-blue-600"
         },
@@ -78,8 +78,8 @@ const Contact = () => {
         {
             icon: MapPin,
             title: "Location",
-            info: "123 Studio Street, Creative District",
-            subtitle: "Los Angeles, CA 90210",
+            info: "Kerala",
+            subtitle: "",
             color: "text-purple-600"
         },
         {
@@ -216,7 +216,7 @@ const Contact = () => {
                                                     name="phone"
                                                     value={formData.phone}
                                                     onChange={handleInputChange}
-                                                    placeholder="+1 (555) 123-4567"
+                                                    placeholder="+91 9876543210"
                                                     className="border-2 focus:border-blue-500 transition-colors duration-300"
                                                 />
                                             </div>
@@ -285,8 +285,8 @@ const Contact = () => {
                                     <div className="text-center">
                                         <MapPin className="w-12 h-12 text-blue-600 mx-auto mb-4" />
                                         <h3 className="text-xl font-bold text-slate-800 mb-2">Our Location</h3>
-                                        <p className="text-slate-600">123 Studio Street, Creative District</p>
-                                        <p className="text-slate-600">Los Angeles, CA 90210</p>
+                                        <p className="text-slate-600">Kerala</p>
+                                        {/* <p className="text-slate-600">Los Angeles, CA 90210</p> */}
                                         <Button variant="outline" className="mt-4 hover:bg-blue-50">
                                             Get Directions
                                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -302,7 +302,7 @@ const Contact = () => {
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     {[
-                                        { stat: "500+", label: "Projects Completed", icon: CheckCircle },
+                                        { stat: "50+", label: "Projects Completed", icon: CheckCircle },
                                         { stat: "24/7", label: "Customer Support", icon: MessageCircle },
                                         { stat: "5★", label: "Average Rating", icon: Star },
                                         { stat: "48hrs", label: "Response Time", icon: Clock }
@@ -391,7 +391,6 @@ const Contact = () => {
                 </div>
             </section>
 
-            <Footer />
         </div>
     );
 };

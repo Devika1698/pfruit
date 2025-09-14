@@ -4,7 +4,6 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { ArrowRight, Camera, Video, Heart, Rocket, Users, Star, Sparkles, Play, Award, Film } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Home = () => {
@@ -385,7 +384,6 @@ const Home = () => {
                 </div>
             </section >
 
-            <Footer />
         </div >
     );
 };
