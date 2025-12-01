@@ -161,8 +161,7 @@ const MoviesService = () => {
                                 <span className="text-slate-800">Storytelling</span>
                             </h1>
                             <p className="text-xl text-slate-600 mb-8 leading-relaxed">
-                                From concept to screen, we create compelling visual narratives that captivate audiences
-                                and bring your stories to life with professional cinematography and expert production.
+                                If been at our core to create and portray stories that are intriguing and entertaining, we are here to guide you through your creative ventures whether that be cinematography, videography, editography or whatever your creative story would be demanding.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <Button size="lg" className="bg-gradient-to-r from-yellow-600 to-slate-800 hover:from-yellow-700 hover:to-slate-900 text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300">

@@ -1,16 +1,57 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Link } from "react-router-dom";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { ArrowRight, Camera, Video, Heart, Rocket, Users, Star, Sparkles, Play, Award, Film } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import FaceRecognitionGallery from "@/components/FaceRecognitionGallery";
+import { galleryAPI } from "@/lib/galleryAPI";
+
+interface GalleryImage {
+  src: string;
+  id: string;
+  alt: string;
+}
 
 const Home = () => {
     const aboutRef = useScrollAnimation();
     const servicesRef = useScrollAnimation();
     const portfolioRef = useScrollAnimation();
     const testimonialsRef = useScrollAnimation();
+    const faceRecognitionRef = useScrollAnimation();
+
+    const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+    const [galleryLoading, setGalleryLoading] = useState(true);
+
+    useEffect(() => {
+        fetchGalleryImages();
+    }, []);
+
+    const fetchGalleryImages = async () => {
+        try {
+            setGalleryLoading(true);
+            const response = await galleryAPI.getWeddingGallery();
+            if (response.success && response.data.length > 0) {
+                // Transform the data to the format needed for face recognition
+                const images: GalleryImage[] = response.data.flatMap(folder =>
+                    folder.images.map(img => ({
+                        src: img.src,
+                        id: img.alt.replace(/\s+/g, '-').toLowerCase(),
+                        alt: img.alt
+                    }))
+                );
+                setGalleryImages(images);
+            }
+        } catch (error) {
+            console.error('Error fetching gallery images:', error);
+            setGalleryImages([]);
+        } finally {
+            setGalleryLoading(false);
+        }
+    };
 
     const services = [
         {
@@ -167,10 +208,12 @@ const Home = () => {
                                 <p className="text-gray-600">Awards Won</p>
                             </div>
                         </div>
-                        <Button variant="outline" size="lg" className="bg-black text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
-                            Read More About Us
-                            <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
+                        <Link to="/about">
+                            <Button variant="outline" size="lg" className="bg-black text-white transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
+                                Read More About Us
+                                <ArrowRight className="ml-2 w-4 h-4" />
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             </section>

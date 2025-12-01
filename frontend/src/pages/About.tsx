@@ -213,7 +213,8 @@ const About = () => {
                 <div className="container mx-auto">
                     <div className="text-center mb-12 animate-fade-in">
                         <h2 className="text-4xl font-bold text-slate-800 mb-4">Meet Our Team</h2>
-                        <p className="text-slate-600 text-lg">The creative minds behind every project</p>
+                        <h3 className="text-2xl font-semibold text-yellow-600 mb-3">Directors</h3>
+                        <p className="text-slate-600 text-lg max-w-4xl mx-auto">Passionate young entrepreneurs, with considerable experiences in respective fields and visionary ideas to help creative ideas and innovations shine, through the channels of new age media and visual concepts.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -235,9 +236,6 @@ const About = () => {
                                     <CardTitle className="text-xl text-slate-800">{member.name}</CardTitle>
                                     <CardDescription className="text-yellow-600 font-medium">{member.role}</CardDescription>
                                 </CardHeader>
-                                <CardContent>
-                                    <p className="text-slate-600">{member.description}</p>
-                                </CardContent>
                             </Card>
                         ))}
                     </div>

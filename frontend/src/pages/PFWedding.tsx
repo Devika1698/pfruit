@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -6,7 +6,9 @@ import { Label } from "@/components/ui/label";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Navigation from "@/components/Navigation";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Heart, Camera, Film, Clock, Star, Phone, Mail, MapPin, Sparkles } from "lucide-react";
+import { Heart, Camera, Film, Clock, Star, Phone, Mail, MapPin, Sparkles, Loader } from "lucide-react";
+import type { GalleryFolder, GalleryImage } from "@/lib/galleryAPI";
+import { galleryAPI } from "@/lib/galleryAPI";
 
 const PFWedding = () => {
     const packagesRef = useScrollAnimation();
@@ -22,6 +24,31 @@ const PFWedding = () => {
         package: "",
         message: ""
     });
+
+    const [galleryFolders, setGalleryFolders] = useState<GalleryFolder[]>([]);
+    const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+    const [galleryLoading, setGalleryLoading] = useState(true);
+
+    useEffect(() => {
+        fetchGalleryData();
+    }, []);
+
+    const fetchGalleryData = async () => {
+        try {
+            setGalleryLoading(true);
+            const response = await galleryAPI.getWeddingGallery();
+            if (response.success && response.data.length > 0) {
+                setGalleryFolders(response.data);
+                // Flatten all images from all folders for the carousel
+                const allImages = response.data.flatMap(folder => folder.images);
+                setGalleryImages(allImages);
+            }
+        } catch (error) {
+            console.error('Error fetching gallery:', error);
+        } finally {
+            setGalleryLoading(false);
+        }
+    };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         setFormData({
@@ -79,7 +106,8 @@ const PFWedding = () => {
         }
     ];
 
-    const galleryImages = [
+    // Fallback images if no gallery data is available
+    const fallbackImages: GalleryImage[] = [
         {
             src: "https://images.unsplash.com/photo-1470813740244-df37b8c1edcb?w=800&h=600&fit=crop",
             alt: "Romantic wedding ceremony"
@@ -102,6 +130,8 @@ const PFWedding = () => {
         }
     ];
 
+    const displayImages = galleryImages.length > 0 ? galleryImages : fallbackImages;
+
     return (
         <div className="min-h-screen bg-white overflow-x-hidden">
             <Navigation />
@@ -111,7 +141,7 @@ const PFWedding = () => {
                 {/* Background Carousel */}
                 <Carousel className="absolute inset-0 w-full h-full">
                     <CarouselContent>
-                        {galleryImages.map((image, index) => (
+                        {displayImages.map((image, index) => (
                             <CarouselItem key={index} className="min-w-0 shrink-0 grow-0 basis-full">
                                 <div
                                     className="absolute inset-0 bg-cover bg-center bg-no-repeat transform transition-transform duration-[20s] hover:scale-110"
@@ -267,42 +297,54 @@ const PFWedding = () => {
                         </p>
                     </div>
 
-                    <Carousel className="w-full max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
-                        <CarouselContent>
-                            {galleryImages.map((image, index) => (
-                                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                                    <div className="p-2">
-                                        <div className="relative group overflow-hidden rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-                                            <img
-                                                src={image.src}
-                                                alt={image.alt}
-                                                className="w-full h-64 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
-                                            <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                                                <p className="text-sm font-medium">{image.alt}</p>
+                    {galleryLoading ? (
+                        <div className="flex justify-center items-center py-20">
+                            <Loader className="w-8 h-8 animate-spin text-rose-500" />
+                        </div>
+                    ) : displayImages.length > 0 ? (
+                        <>
+                            <Carousel className="w-full max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                                <CarouselContent>
+                                    {displayImages.map((image, index) => (
+                                        <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                                            <div className="p-2">
+                                                <div className="relative group overflow-hidden rounded-lg shadow-lg transform transition-all duration-500 hover:scale-105 hover:shadow-2xl">
+                                                    <img
+                                                        src={image.src}
+                                                        alt={image.alt}
+                                                        className="w-full h-64 object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                                                    />
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500" />
+                                                    <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                                        <p className="text-sm font-medium">{image.alt}</p>
+                                                    </div>
+                                                    {/* Floating heart on hover */}
+                                                    <Heart className="absolute top-4 right-4 w-6 h-6 text-white opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300" />
+                                                </div>
                                             </div>
-                                            {/* Floating heart on hover */}
-                                            <Heart className="absolute top-4 right-4 w-6 h-6 text-white opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-100 transition-all duration-300" />
-                                        </div>
-                                    </div>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        <CarouselPrevious className="hover:scale-110 transition-transform duration-200" />
-                        <CarouselNext className="hover:scale-110 transition-transform duration-200" />
-                    </Carousel>
+                                        </CarouselItem>
+                                    ))}
+                                </CarouselContent>
+                                <CarouselPrevious className="hover:scale-110 transition-transform duration-200" />
+                                <CarouselNext className="hover:scale-110 transition-transform duration-200" />
+                            </Carousel>
 
-                    <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="border-rose-500 text-rose-600 hover:bg-rose-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
-                            onClick={() => window.location.href = '/gallery'}
-                        >
-                            View Full Portfolio
-                        </Button>
-                    </div>
+                            <div className="text-center mt-12 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                                <Button
+                                    size="lg"
+                                    variant="outline"
+                                    className="border-rose-500 text-rose-600 hover:bg-rose-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                                    onClick={() => window.location.href = '/gallery'}
+                                >
+                                    View Full Portfolio ({galleryFolders.length} categories)
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        <div className="text-center py-20">
+                            <p className="text-gray-600 text-lg">Gallery coming soon. Check back later!</p>
+                        </div>
+                    )}
                 </div>
             </section>
 
