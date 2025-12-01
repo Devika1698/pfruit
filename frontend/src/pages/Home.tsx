@@ -268,6 +268,13 @@ const Home = () => {
                 </div>
             </section>
 
+            {/* Face Recognition Gallery Section */}
+            {!galleryLoading && galleryImages.length > 0 && (
+                <div ref={faceRecognitionRef}>
+                    <FaceRecognitionGallery galleryImages={galleryImages} />
+                </div>
+            )}
+
             {/* Portfolio Showcase */}
             <section ref={portfolioRef} className="py-20 bg-gradient-to-br from-gray-50 via-yellow-50/20 to-black/5 relative overflow-hidden">
                 {/* Background decorative elements */}

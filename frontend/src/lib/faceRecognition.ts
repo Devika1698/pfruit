@@ -29,18 +29,38 @@ export const initializeFaceDetection = async () => {
 export const getFaceDescriptor = async (imageElement: HTMLImageElement) => {
   try {
     const detections = await faceapi
-      .detectSingleFace(imageElement, new faceapi.TinyFaceDetectorOptions())
+      .detectSingleFace(imageElement, new faceapi.TinyFaceDetectorOptions({
+        inputSize: 416,
+        scoreThreshold: 0.5, // Require higher confidence (0-1 scale)
+      }))
       .withFaceLandmarks()
       .withFaceDescriptor();
 
     if (!detections) {
-      throw new Error('No face detected in image');
+      return null;
+    }
+
+    // Additional validation: check if detection box is reasonable size
+    // Face should be at least 20x20 pixels and not more than image size
+    const { width, height } = detections.detection.box;
+    const minFaceSize = 20;
+    
+    if (width < minFaceSize || height < minFaceSize) {
+      console.log('Face too small detected, skipping');
+      return null;
+    }
+
+    // Check detection score for extra confidence
+    const detectionScore = detections.detection.score;
+    if (detectionScore < 0.6) {
+      console.log(`Low detection confidence (${detectionScore}), skipping`);
+      return null;
     }
 
     return detections.descriptor;
   } catch (error) {
     console.error('Error detecting face:', error);
-    throw error;
+    return null;
   }
 };
 
@@ -66,11 +86,16 @@ export const calculateSimilarity = (
 export const findMatchingFaces = async (
   uploadedImage: HTMLImageElement,
   galleryImages: Array<{ src: string; id: string; alt: string }>,
-  similarityThreshold: number = 0.6
+  similarityThreshold: number = 0.6,
+  onProgress?: (processed: number, total: number) => void
 ) => {
   try {
     // Get descriptor of uploaded selfie
     const uploadedDescriptor = await getFaceDescriptor(uploadedImage);
+    
+    if (!uploadedDescriptor) {
+      throw new Error('No face detected in your uploaded image. Please try with a clearer photo.');
+    }
 
     // Process each gallery image
     const matchingPhotos: Array<{
@@ -80,7 +105,9 @@ export const findMatchingFaces = async (
       similarity: number;
     }> = [];
 
-    for (const galleryImage of galleryImages) {
+    for (let i = 0; i < galleryImages.length; i++) {
+      const galleryImage = galleryImages[i];
+      
       try {
         const img = new Image();
         img.crossOrigin = 'anonymous';
@@ -92,19 +119,30 @@ export const findMatchingFaces = async (
         });
 
         const galleryDescriptor = await getFaceDescriptor(img);
-        const similarity = calculateSimilarity(uploadedDescriptor, galleryDescriptor);
+        
+        // Skip if no face detected in gallery image
+        if (!galleryDescriptor) {
+          console.log(`Skipping image ${galleryImage.id}: No face detected`);
+        } else {
+          const similarity = calculateSimilarity(uploadedDescriptor, galleryDescriptor);
 
-        if (similarity >= similarityThreshold) {
-          matchingPhotos.push({
-            id: galleryImage.id,
-            src: galleryImage.src,
-            alt: galleryImage.alt,
-            similarity,
-          });
+          if (similarity >= similarityThreshold) {
+            matchingPhotos.push({
+              id: galleryImage.id,
+              src: galleryImage.src,
+              alt: galleryImage.alt,
+              similarity,
+            });
+          }
         }
       } catch (error) {
-        // Skip images where face detection fails
-        console.log(`Skipping image ${galleryImage.id}: No face or detection error`);
+        // Skip images where processing fails
+        console.log(`Skipping image ${galleryImage.id}: Processing error`);
+      }
+
+      // Report progress
+      if (onProgress) {
+        onProgress(i + 1, galleryImages.length);
       }
     }
 

@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { Upload, Loader, Search, X, AlertCircle } from 'lucide-react';
+import { Upload, Loader, Search, X, AlertCircle, Download, Eye } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/useToast';
 import {
   initializeFaceDetection,
   findMatchingFaces,
@@ -20,6 +21,7 @@ interface FaceRecognitionGalleryProps {
 }
 
 const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) => {
+  const { toast } = useToast();
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -28,6 +30,8 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
   const [searched, setSearched] = useState(false);
   const [similarityThreshold, setSimilarityThreshold] = useState(0.6);
   const [selectedPhoto, setSelectedPhoto] = useState<MatchedPhoto | null>(null);
+  const [processingProgress, setProcessingProgress] = useState(0);
+  const [processedCount, setProcessedCount] = useState(0);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadedImageRef = useRef<HTMLImageElement>(null);
@@ -52,15 +56,24 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
     const file = event.target.files?.[0];
     if (!file) return;
 
-    // Validate file type
-    if (!file.type.startsWith('image/')) {
-      alert('Please upload an image file');
+    // Validate file type - only PNG, JPG, JPEG
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: 'Invalid file format',
+        description: 'Please upload PNG, JPG, or JPEG files only',
+        variant: 'destructive'
+      });
       return;
     }
 
     // Validate file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      alert('Please upload an image smaller than 10MB');
+      toast({
+        title: 'File too large',
+        description: 'Please upload an image smaller than 10MB',
+        variant: 'destructive'
+      });
       return;
     }
 
@@ -76,33 +89,64 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
 
   const handleSearchFaces = async () => {
     if (!uploadedImageRef.current || !uploadedImage) {
-      alert('Please upload a selfie first');
+      toast({
+        title: 'No image uploaded',
+        description: 'Please upload a selfie first',
+        variant: 'destructive'
+      });
       return;
     }
 
     if (galleryImages.length === 0) {
-      alert('No gallery images available to search');
+      toast({
+        title: 'No gallery images',
+        description: 'No gallery images available to search',
+        variant: 'destructive'
+      });
       return;
     }
 
     try {
       setLoading(true);
+      setProcessingProgress(0);
+      setProcessedCount(0);
+
       const matches = await findMatchingFaces(
         uploadedImageRef.current,
         galleryImages,
-        similarityThreshold
+        similarityThreshold,
+        (processed, total) => {
+          setProcessedCount(processed);
+          setProcessingProgress(Math.round((processed / total) * 100));
+        }
       );
 
       setMatchedPhotos(matches);
       setSearched(true);
 
       if (matches.length === 0) {
-        alert(`No photos found with similarity above ${(similarityThreshold * 100).toFixed(0)}%`);
+        toast({
+          title: 'No matches found',
+          description: `Try lowering the sensitivity level or uploading a clearer selfie with visible facial features.`,
+          variant: 'default'
+        });
+      } else {
+        toast({
+          title: 'Success!',
+          description: `Found ${matches.length} matching photo${matches.length !== 1 ? 's' : ''} from gallery`,
+          variant: 'success'
+        });
       }
     } catch (error) {
-      alert(error instanceof Error ? error.message : 'Failed to search for matching faces');
+      toast({
+        title: 'Search failed',
+        description: error instanceof Error ? error.message : 'Failed to search for matching faces',
+        variant: 'destructive'
+      });
     } finally {
       setLoading(false);
+      setProcessingProgress(0);
+      setProcessedCount(0);
     }
   };
 
@@ -115,6 +159,27 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
+  };
+
+  const handleDownload = (photo: MatchedPhoto) => {
+    // Determine file extension from the image URL
+    let extension = 'jpg'; // default
+    try {
+      const urlPath = new URL(photo.src).pathname;
+      const match = urlPath.match(/\.([a-z]+)$/i);
+      if (match) {
+        extension = match[1].toLowerCase();
+      }
+    } catch (error) {
+      console.log('Could not parse URL extension, using default jpg');
+    }
+
+    const link = document.createElement('a');
+    link.href = photo.src;
+    link.download = `face-match-${photo.alt.toLowerCase().replace(/\s+/g, '-')}.${extension}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   if (modelsLoading) {
@@ -146,9 +211,9 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
             <p className="text-gray-500">Powered by advanced face recognition technology</p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className={`${matchedPhotos.length > 0 && searched ? 'grid grid-cols-1 lg:grid-cols-2 gap-8' : 'flex justify-center'}`}>
             {/* Upload Section */}
-            <Card className="border-2 border-dashed border-blue-200 bg-white/50 backdrop-blur">
+            <Card className={`border-2 border-dashed border-blue-200 bg-white/50 backdrop-blur ${matchedPhotos.length > 0 && searched ? 'w-full' : 'max-w-md w-full'}`}>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Upload className="w-5 h-5" />
@@ -176,7 +241,7 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
                     Click to upload or drag and drop
                   </p>
                   <p className="text-gray-500 text-sm mt-2">
-                    PNG, JPG, GIF up to 10MB
+                    PNG, JPG, JPEG up to 10MB
                   </p>
                 </div>
 
@@ -235,7 +300,7 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
                       {loading ? (
                         <>
                           <Loader className="w-4 h-4 mr-2 animate-spin" />
-                          Searching...
+                          Searching... ({processingProgress}%)
                         </>
                       ) : (
                         <>
@@ -259,7 +324,33 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
             </Card>
 
             {/* Results Section */}
+            {matchedPhotos.length > 0 && searched && (
             <div className="space-y-6">
+              {loading && (
+                <Card>
+                  <CardContent className="pt-6">
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <p className="text-sm font-medium text-gray-700">
+                          Processing images...
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          {processedCount} / {galleryImages.length}
+                        </p>
+                      </div>
+                      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
+                          style={{ width: `${processingProgress}%` }}
+                        />
+                      </div>
+                      <p className="text-xs text-gray-500 text-center">
+                        {processingProgress}% complete
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
               {searched && (
                 <>
                   {matchedPhotos.length > 0 ? (
@@ -333,39 +424,42 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
                 </>
               )}
             </div>
-          </div>
+            )}
 
           {/* Full Image Preview Modal */}
           {selectedPhoto && (
             <div
-              className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4"
+              className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
               onClick={() => setSelectedPhoto(null)}
             >
-              <Card className="max-w-2xl w-full">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0">
-                  <div>
-                    <CardTitle>{selectedPhoto.alt}</CardTitle>
-                    <CardDescription>
-                      {(selectedPhoto.similarity * 100).toFixed(1)}% match
-                    </CardDescription>
-                  </div>
-                  <button
-                    onClick={() => setSelectedPhoto(null)}
-                    className="text-gray-400 hover:text-gray-600"
+              <div
+                className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden shadow-2xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedPhoto(null)}
+                  className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center z-10 transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                <img
+                  src={selectedPhoto.src}
+                  alt={selectedPhoto.alt}
+                  className="w-full h-auto max-h-[90vh] object-contain"
+                />
+                <div className="absolute bottom-4 left-4 right-4 flex gap-3 justify-center">
+                  <Button
+                    onClick={() => handleDownload(selectedPhoto)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    <X className="w-6 h-6" />
-                  </button>
-                </CardHeader>
-                <CardContent>
-                  <img
-                    src={selectedPhoto.src}
-                    alt={selectedPhoto.alt}
-                    className="w-full rounded-lg"
-                  />
-                </CardContent>
-              </Card>
+                    <Download className="w-4 h-4 mr-2" />
+                    Download
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </section>
