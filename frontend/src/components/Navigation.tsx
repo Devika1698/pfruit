@@ -9,7 +9,7 @@ import {
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Film, Camera, Heart, Briefcase } from "lucide-react";
+import { Menu, X, Film, Camera, Heart, Briefcase, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import pfLogo from "@/assets/pf.jpg"; // Adjust the path as necessary
 
@@ -18,6 +18,20 @@ const Navigation = () => {
     const location = useLocation();
 
     const isActive = (path: string) => location.pathname === path;
+
+    const handleScrollToSection = (sectionId: string) => {
+        // First navigate to home if not already there
+        if (location.pathname !== '/') {
+            window.location.href = '/#' + sectionId;
+        } else {
+            // Smooth scroll to section
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+        setIsMobileMenuOpen(false);
+    };
 
     const serviceItems = [
         {
@@ -145,6 +159,16 @@ const Navigation = () => {
                                         Contact Us
                                     </Link>
                                 </NavigationMenuItem>
+
+                                <NavigationMenuItem>
+                                    <button
+                                        onClick={() => handleScrollToSection('face-recognition-section')}
+                                        className="px-3 py-2 text-sm font-medium transition-colors hover:text-primary text-gray-600 rounded-md hover:bg-accent flex items-center gap-2"
+                                    >
+                                        <Search className="w-4 h-4" />
+                                        Find Your Photo
+                                    </button>
+                                </NavigationMenuItem>
                             </NavigationMenuList>
                         </NavigationMenu>
 
@@ -188,6 +212,13 @@ const Navigation = () => {
                             <Link to="/rental-services" className="px-3 py-2 text-gray-600 hover:text-primary">Rental Services</Link>
 
                             <Link to="/contact" className="px-3 py-2 text-gray-600 hover:text-primary">Contact Us</Link>
+                            <button
+                                onClick={() => handleScrollToSection('face-recognition-section')}
+                                className="px-3 py-2 text-gray-600 hover:text-primary text-left w-full flex items-center gap-2"
+                            >
+                                <Search className="w-4 h-4" />
+                                Find Your Photo
+                            </button>
                             <Button asChild className="mx-3 mt-4">
                                 <Link to="/contact">Get Quote</Link>
                             </Button>

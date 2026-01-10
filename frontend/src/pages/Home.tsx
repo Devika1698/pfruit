@@ -28,6 +28,17 @@ const Home = () => {
 
     useEffect(() => {
         fetchGalleryImages();
+        
+        // Handle hash-based navigation for smooth scrolling
+        if (window.location.hash) {
+            const sectionId = window.location.hash.slice(1);
+            setTimeout(() => {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
+        }
     }, []);
 
     const fetchGalleryImages = async () => {
@@ -270,7 +281,7 @@ const Home = () => {
 
             {/* Face Recognition Gallery Section */}
             {!galleryLoading && galleryImages.length > 0 && (
-                <div ref={faceRecognitionRef}>
+                <div ref={faceRecognitionRef} id="face-recognition-section">
                     <FaceRecognitionGallery galleryImages={galleryImages} />
                 </div>
             )}
