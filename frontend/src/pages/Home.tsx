@@ -9,11 +9,12 @@ import Navigation from "@/components/Navigation";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import FaceRecognitionGallery from "@/components/FaceRecognitionGallery";
 import { galleryAPI } from "@/lib/galleryAPI";
+import bg from "@/assets/web-bg.png";
 
 interface GalleryImage {
-  src: string;
-  id: string;
-  alt: string;
+    src: string;
+    id: string;
+    alt: string;
 }
 
 const Home = () => {
@@ -28,7 +29,7 @@ const Home = () => {
 
     useEffect(() => {
         fetchGalleryImages();
-        
+
         // Handle hash-based navigation for smooth scrolling
         if (window.location.hash) {
             const sectionId = window.location.hash.slice(1);
@@ -147,8 +148,17 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
-                {/* Geometric Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-500 via-gray-400 to-gray-600">
+                {/* Background Image */}
+                <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                        backgroundImage: `url(${bg})`
+                    }}
+                />
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-black/45" />
+                {/* Geometric Background with reduced opacity */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-500/10 via-gray-400/10 to-gray-600/10">
                     {/* Geometric shapes */}
                     <div className="absolute inset-0">
                         <div className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-gray-300/20 rotate-45 transform"></div>
@@ -168,12 +178,14 @@ const Home = () => {
                         We create compelling visual narratives that captivate and inspire audiences across all platforms.
                     </p>
 
-                    <Button
-                        size="lg"
-                        className="bg-black hover:bg-gray-800 text-white px-8 py-3 text-lg font-medium transform transition-all duration-300 hover:scale-105"
-                    >
-                        Explore Our Work
-                    </Button>
+                    <a href="#latest-work">
+                        <Button
+                            size="lg"
+                            className="bg-gradient-to-r from-yellow-500 to-yellow-700 text-white px-8 py-3 text-lg font-medium transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700"
+                        >
+                            Explore Our Work
+                        </Button>
+                    </a>
                 </div>
             </section>
 
@@ -230,7 +242,7 @@ const Home = () => {
             </section>
 
             {/* Services Overview */}
-            <section ref={servicesRef} className="py-20 bg-gradient-to-b from-white to-gray-50/50">
+            <section ref={servicesRef} id="our-services" className="py-20 bg-gradient-to-b from-white to-gray-50/50">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-16 animate-fade-in">
                         <h2 className="text-5xl font-bold mb-4 bg-gradient-to-r from-black via-yellow-700 to-gray-800 bg-clip-text text-transparent">
@@ -287,7 +299,7 @@ const Home = () => {
             )}
 
             {/* Portfolio Showcase */}
-            <section ref={portfolioRef} className="py-20 bg-gradient-to-br from-gray-50 via-yellow-50/20 to-black/5 relative overflow-hidden">
+            <section ref={portfolioRef} id="latest-work" className="py-20 bg-gradient-to-br from-gray-50 via-yellow-50/20 to-black/5 relative overflow-hidden">
                 {/* Background decorative elements */}
                 <div className="absolute top-20 left-20 w-24 h-24 bg-gradient-to-br from-yellow-400/10 to-black/10 rounded-full blur-xl" />
                 <div className="absolute bottom-20 right-20 w-32 h-32 bg-gradient-to-br from-black/10 to-yellow-400/10 rounded-full blur-xl" />
@@ -426,21 +438,29 @@ const Home = () => {
                         Get in touch today for a free consultation and let's bring your ideas to life.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Button
-                            size="lg"
-                            className="bg-black text-white hover:from-yellow-400 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700"
+                        <Link to="/contact">
+                            <Button
+                                size="lg"
+                                className="bg-black text-white hover:from-yellow-400 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700"
+                            >
+                                Get in Touch
+                                <ArrowRight className="ml-2 w-5 h-5" />
+                            </Button>
+                        </Link>
+                        <a
+                            href="https://www.youtube.com/@pfruitmedia"
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                            Get in Touch
-                            <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
-                        <Button
-                            size="lg"
-                            variant="outline"
-                            className="border border-yellow-600 text-yellow-600 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700 duration-300"
-                        >
-                            View Our Work
-                            <Play className="ml-2 w-5 h-5" />
-                        </Button>
+                            <Button
+                                size="lg"
+                                variant="outline"
+                                className="border border-yellow-600 text-yellow-600 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700 duration-300"
+                            >
+                                View Our Work
+                                <Play className="ml-2 w-5 h-5" />
+                            </Button>
+                        </a>
                     </div>
                 </div>
             </section >

@@ -26,7 +26,7 @@ const ComingSoon: React.FC = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5, duration: 1 }}
                 >
-                    We’re building something amazing — launching soon!
+                    We’re building something amazing - launching soon!
                 </motion.p>
 
                 {/* Email Subscribe */}

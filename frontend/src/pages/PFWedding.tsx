@@ -63,6 +63,20 @@ const PFWedding = () => {
         // Handle form submission here
     };
 
+    const handlePackageSelect = (packageName: string) => {
+        setFormData({
+            ...formData,
+            package: packageName.toLowerCase()
+        });
+        // Navigate to booking section
+        setTimeout(() => {
+            const bookingSection = document.getElementById('book-wedding');
+            if (bookingSection) {
+                bookingSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }, 0);
+    };
+
     const packages = [
         {
             name: "Essential",
@@ -200,14 +214,18 @@ const PFWedding = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-6 justify-center opacity-0 animate-fade-in" style={{ animationDelay: '1s', animationFillMode: 'forwards' }}>
-                        <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-10 py-4 text-lg font-bold transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
-                            View Our Portfolio
-                            <Camera className="ml-3 w-6 h-6" />
-                        </Button>
-                        <Button size="lg" variant="outline" className="border-2 border-white text-black hover:bg-white hover:text-black px-10 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 backdrop-blur-sm">
-                            Book Consultation
-                            <Heart className="ml-3 w-6 h-6" />
-                        </Button>
+                        <a href="/gallery">
+                            <Button size="lg" className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-10 py-4 text-lg font-bold transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+                                View Our Portfolio
+                                <Camera className="ml-3 w-6 h-6" />
+                            </Button>
+                        </a>
+                        <a href="#book-wedding">
+                            <Button size="lg" variant="outline" className="border-2 border-white text-black hover:bg-white hover:text-black px-10 py-4 text-lg font-semibold transform transition-all duration-300 hover:scale-105 backdrop-blur-sm">
+                                Book Consultation
+                                <Heart className="ml-3 w-6 h-6" />
+                            </Button>
+                        </a>
                     </div>
                 </div>
             </section>
@@ -275,6 +293,7 @@ const PFWedding = () => {
                                             : 'hover:shadow-lg'
                                             }`}
                                         variant={pkg.popular ? 'default' : 'outline'}
+                                        onClick={() => handlePackageSelect(pkg.name)}
                                     >
                                         Choose {pkg.name}
                                     </Button>
@@ -349,7 +368,7 @@ const PFWedding = () => {
             </section>
 
             {/* Booking Section */}
-            <section ref={bookingRef} className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white scroll-animate">
+            <section ref={bookingRef} id="book-wedding" className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white scroll-animate">
                 <div className="container mx-auto max-w-4xl">
                     <div className="text-center mb-16 animate-fade-in">
                         <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-800 to-rose-800 bg-clip-text text-transparent">
@@ -490,7 +509,7 @@ const PFWedding = () => {
                                     </div>
                                     <div className="flex items-center group/item">
                                         <Mail className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
-                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">weddings@pfmedia.com</span>
+                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">pfruitmedia@gmail.com</span>
                                     </div>
                                     <div className="flex items-center group/item">
                                         <MapPin className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />

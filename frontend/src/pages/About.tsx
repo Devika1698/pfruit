@@ -86,14 +86,22 @@ const About = () => {
                                 Each life is a unique and intriguing story. At PFruit, we carefully craft our services to portray it with passion and authenticity. Whether it’s art or business, we understand your vision and provide the perfect media team to bring it to life.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4">
-                                <Button size="lg" className="bg-black text-white hover:from-yellow-400 hover:shadow-lg text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
-                                    Our Services
-                                    <ArrowRight className="ml-2 h-5 w-5" />
-                                </Button>
-                                <Button variant="outline" size="lg" className="px-8 py-6 text-lg border border-yellow-600 text-yellow-600 hover:text-white hover:from-yellow-400 transform hover:scale-105 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
-                                    <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                                    Watch Our Work
-                                </Button>
+                                <a href="/#our-services">
+                                    <Button size="lg" className="bg-black text-white hover:from-yellow-400 hover:shadow-lg text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
+                                        Our Services
+                                        <ArrowRight className="ml-2 h-5 w-5" />
+                                    </Button>
+                                </a>
+                                <a
+                                    href="https://www.youtube.com/@pfruitmedia"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <Button variant="outline" size="lg" className="px-8 py-6 text-lg border border-yellow-600 text-yellow-600 hover:text-white hover:from-yellow-400 transform hover:scale-105 transition-all duration-300 hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
+                                        <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                                        Watch Our Work
+                                    </Button>
+                                </a>
                             </div>
                         </div>
                         <div className="relative animate-fade-in" style={{ animationDelay: '0.3s' }}>

@@ -46,10 +46,34 @@ const Contact = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        toast({
-            title: "Message Sent!",
-            description: "Thank you for contacting us. We'll get back to you within 24 hours.",
-        });
+
+        // Create the message with form data
+        const message = `Hello PF Media,
+
+I would like to get in touch regarding your services.
+
+*Contact Details:*
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service Interest: ${formData.service || "Not specified"}
+
+*Subject:* ${formData.subject}
+
+*Message:*
+${formData.message}
+
+Looking forward to hearing from you!`;
+
+        // Encode the message for URL
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappNumber = import.meta.env.VITE_WHATSAPP_NUMBER;
+        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+        // Open WhatsApp
+        window.open(whatsappUrl, '_blank');
+
+        // Reset form
         setFormData({
             name: "",
             email: "",
@@ -57,6 +81,11 @@ const Contact = () => {
             subject: "",
             message: "",
             service: ""
+        });
+
+        toast({
+            title: "Redirecting to WhatsApp",
+            description: "Your message will be sent on WhatsApp.",
         });
     };
 
@@ -127,14 +156,18 @@ const Contact = () => {
                             Ready to bring your vision to life? Let's discuss your project and create something amazing together.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button size="lg" className="bg-gradient-to-r from-yellow-600 to-slate-800 hover:from-yellow-700 hover:to-slate-900 text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300">
-                                <MessageCircle className="mr-2 h-5 w-5" />
-                                Start a Conversation
-                            </Button>
-                            <Button variant="outline" size="lg" className="px-8 py-6 text-lg border-2 hover:bg-slate-50 transform hover:scale-105 transition-all duration-300">
-                                <Calendar className="mr-2 h-5 w-5" />
-                                Schedule a Call
-                            </Button>
+                            <a href={`https://wa.me/${import.meta.env.VITE_WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer">
+                                <Button size="lg" className="bg-gradient-to-r from-yellow-600 to-slate-800 hover:from-yellow-700 hover:to-slate-900 text-white px-8 py-6 text-lg transform hover:scale-105 transition-all duration-300">
+                                    <MessageCircle className="mr-2 h-5 w-5" />
+                                    Start a Conversation
+                                </Button>
+                            </a>
+                            <a href="#contact-form">
+                                <Button variant="outline" size="lg" className="px-8 py-6 text-lg border-2 hover:bg-slate-50 transform hover:scale-105 transition-all duration-300">
+                                    <Calendar className="mr-2 h-5 w-5" />
+                                    Schedule a Call
+                                </Button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -166,7 +199,7 @@ const Contact = () => {
             </section>
 
             {/* Contact Form and Map Section */}
-            <section ref={formRef} className="py-16 px-4 scroll-animate">
+            <section ref={formRef} id="contact-form" className="py-16 px-4 scroll-animate">
                 <div className="container mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                         {/* Contact Form */}
@@ -378,14 +411,18 @@ const Contact = () => {
                         <h2 className="text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
                         <p className="text-xl mb-8 opacity-90">Let's create something amazing together. Get in touch today!</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button size="lg" variant="secondary" className="px-8 py-6 text-lg bg-yellow-600 text-white hover:bg-yellow-700 transform hover:scale-105 transition-all duration-300">
-                                <Phone className="mr-2 h-5 w-5" />
-                                Call Now
-                            </Button>
-                            <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white transform hover:scale-105 transition-all duration-300">
-                                <Mail className="mr-2 h-5 w-5" />
-                                Email Us
-                            </Button>
+                            <a href={`tel:+${import.meta.env.VITE_WHATSAPP_NUMBER}`}>
+                                <Button size="lg" variant="secondary" className="px-8 py-6 text-lg bg-yellow-600 text-white hover:bg-yellow-700 transform hover:scale-105 transition-all duration-300">
+                                    <Phone className="mr-2 h-5 w-5" />
+                                    Call Now
+                                </Button>
+                            </a>
+                            <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL}?subject=Project Enquiry&body=Hello PF Media,%0A%0AI would like to discuss my project with you.%0A%0APlease let me know about your services and availability.%0A%0AThank you!`}>
+                                <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white transform hover:scale-105 transition-all duration-300">
+                                    <Mail className="mr-2 h-5 w-5" />
+                                    Email Us
+                                </Button>
+                            </a>
                         </div>
                     </div>
                 </div>
