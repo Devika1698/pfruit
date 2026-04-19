@@ -2,7 +2,7 @@
   "name": "pf-media-backend",
   "version": "1.0.0",
   "description": "Backend server for PF Media",
-  "main": "dist/index.js",
+  "main": "dist/index.ts",
   "scripts": {
     "start": "node dist/index.js",
     "dev": "ts-node-dev --respawn src/index.ts",

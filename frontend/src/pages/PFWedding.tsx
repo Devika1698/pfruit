@@ -231,10 +231,10 @@ const PFWedding = () => {
             </section>
 
             {/* Wedding Packages */}
-            <section ref={packagesRef} className="py-20 px-4 bg-gradient-to-b from-white to-rose-50/30 scroll-animate">
+            <section ref={packagesRef} className="py-20 px-4 bg-gradient-to-b from-white to-yellow-50/30 scroll-animate">
                 <div className="container mx-auto max-w-6xl">
                     <div className="text-center mb-16 animate-fade-in">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-800 to-rose-800 bg-clip-text text-transparent">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-yellow-600 via-black to-yellow-600 bg-clip-text text-transparent">
                             Wedding Packages
                         </h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -248,29 +248,29 @@ const PFWedding = () => {
                             <Card
                                 key={index}
                                 className={`relative transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 group ${pkg.popular
-                                    ? 'ring-2 ring-rose-500 scale-105 shadow-xl'
+                                    ? 'ring-2 ring-yellow-500 scale-105 shadow-xl'
                                     : 'hover:shadow-xl'
                                     } animate-fade-in`}
                                 style={{ animationDelay: `${index * 0.2}s` }}
                             >
                                 {pkg.popular && (
                                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                        <span className="bg-gradient-to-r from-rose-500 to-rose-600 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg animate-pulse">
+                                        <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-4 py-2 rounded-full text-sm font-medium shadow-lg animate-pulse">
                                             Most Popular
                                         </span>
                                     </div>
                                 )}
 
                                 <CardHeader className="text-center relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-rose-50/0 to-rose-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                    <CardTitle className="text-2xl font-bold text-gray-900 relative z-10 group-hover:text-rose-700 transition-colors duration-300">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/0 to-yellow-100/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    <CardTitle className="text-2xl font-bold text-gray-900 relative z-10 group-hover:text-yellow-700 transition-colors duration-300">
                                         {pkg.name}
                                     </CardTitle>
-                                    <div className="text-3xl font-bold text-rose-600 mb-2 relative z-10 group-hover:scale-110 transition-transform duration-300">
+                                    <div className="text-3xl font-bold text-yellow-600 mb-2 relative z-10 group-hover:scale-110 transition-transform duration-300">
                                         {pkg.price}
                                     </div>
                                     <CardDescription className="flex items-center justify-center relative z-10">
-                                        <Clock className="w-4 h-4 mr-2 group-hover:text-rose-500 transition-colors duration-300" />
+                                        <Clock className="w-4 h-4 mr-2 group-hover:text-yellow-500 transition-colors duration-300" />
                                         {pkg.duration}
                                     </CardDescription>
                                 </CardHeader>
@@ -279,7 +279,7 @@ const PFWedding = () => {
                                     <ul className="space-y-3">
                                         {pkg.features.map((feature, idx) => (
                                             <li key={idx} className="flex items-start group/item">
-                                                <Star className="w-5 h-5 text-rose-500 mr-2 mt-0.5 flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200" />
+                                                <Star className="w-5 h-5 text-yellow-500 mr-2 mt-0.5 flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200" />
                                                 <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">
                                                     {feature}
                                                 </span>
@@ -289,7 +289,7 @@ const PFWedding = () => {
 
                                     <Button
                                         className={`w-full mt-6 transform transition-all duration-300 hover:scale-105 ${pkg.popular
-                                            ? 'bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 shadow-lg'
+                                            ? 'bg-gradient-to-r from-yellow-600 to-yellow-700 hover:from-yellow-700 hover:to-black text-black shadow-lg'
                                             : 'hover:shadow-lg'
                                             }`}
                                         variant={pkg.popular ? 'default' : 'outline'}
@@ -305,10 +305,10 @@ const PFWedding = () => {
             </section>
 
             {/* Gallery Showcase */}
-            <section ref={galleryRef} className="py-20 px-4 bg-gradient-to-b from-rose-50/30 to-gray-50 scroll-animate">
+            <section ref={galleryRef} className="py-20 px-4 bg-gradient-to-b from-yellow-50/30 to-gray-50 scroll-animate">
                 <div className="container mx-auto max-w-6xl">
                     <div className="text-center mb-16 animate-fade-in">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-800 to-rose-800 bg-clip-text text-transparent">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-yellow-600 via-black to-yellow-600 bg-clip-text text-transparent">
                             Wedding Gallery
                         </h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -318,7 +318,7 @@ const PFWedding = () => {
 
                     {galleryLoading ? (
                         <div className="flex justify-center items-center py-20">
-                            <Loader className="w-8 h-8 animate-spin text-rose-500" />
+                            <Loader className="w-8 h-8 animate-spin text-yellow-500" />
                         </div>
                     ) : displayImages.length > 0 ? (
                         <>
@@ -352,7 +352,7 @@ const PFWedding = () => {
                                 <Button
                                     size="lg"
                                     variant="outline"
-                                    className="border-rose-500 text-rose-600 hover:bg-rose-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                                    className="border-yellow-500 text-yellow-600 hover:bg-yellow-50 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
                                     onClick={() => window.location.href = '/gallery'}
                                 >
                                     View Full Portfolio ({galleryFolders.length} categories)
@@ -371,7 +371,7 @@ const PFWedding = () => {
             <section ref={bookingRef} id="book-wedding" className="py-20 px-4 bg-gradient-to-b from-gray-50 to-white scroll-animate">
                 <div className="container mx-auto max-w-4xl">
                     <div className="text-center mb-16 animate-fade-in">
-                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-gray-800 to-rose-800 bg-clip-text text-transparent">
+                        <h2 className="text-4xl font-bold text-gray-900 mb-4 bg-gradient-to-r from-yellow-600 via-black to-yellow-600 bg-clip-text text-transparent">
                             Book Your Wedding
                         </h2>
                         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
@@ -394,18 +394,18 @@ const PFWedding = () => {
                                 <form onSubmit={handleSubmit} className="space-y-6">
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="group">
-                                            <Label htmlFor="name" className="group-focus-within:text-rose-600 transition-colors duration-200">Full Name *</Label>
+                                            <Label htmlFor="name" className="group-focus-within:text-yellow-600 transition-colors duration-200">Full Name *</Label>
                                             <Input
                                                 id="name"
                                                 name="name"
                                                 required
                                                 value={formData.name}
                                                 onChange={handleInputChange}
-                                                className="mt-1 transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             />
                                         </div>
                                         <div className="group">
-                                            <Label htmlFor="email" className="group-focus-within:text-rose-600 transition-colors duration-200">Email *</Label>
+                                            <Label htmlFor="email" className="group-focus-within:text-yellow-600 transition-colors duration-200">Email *</Label>
                                             <Input
                                                 id="email"
                                                 name="email"
@@ -413,56 +413,56 @@ const PFWedding = () => {
                                                 required
                                                 value={formData.email}
                                                 onChange={handleInputChange}
-                                                className="mt-1 transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="group">
-                                            <Label htmlFor="phone" className="group-focus-within:text-rose-600 transition-colors duration-200">Phone Number</Label>
+                                            <Label htmlFor="phone" className="group-focus-within:text-yellow-600 transition-colors duration-200">Phone Number</Label>
                                             <Input
                                                 id="phone"
                                                 name="phone"
                                                 type="tel"
                                                 value={formData.phone}
                                                 onChange={handleInputChange}
-                                                className="mt-1 transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             />
                                         </div>
                                         <div className="group">
-                                            <Label htmlFor="date" className="group-focus-within:text-rose-600 transition-colors duration-200">Wedding Date</Label>
+                                            <Label htmlFor="date" className="group-focus-within:text-yellow-600 transition-colors duration-200">Wedding Date</Label>
                                             <Input
                                                 id="date"
                                                 name="date"
                                                 type="date"
                                                 value={formData.date}
                                                 onChange={handleInputChange}
-                                                className="mt-1 transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             />
                                         </div>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-4">
                                         <div className="group">
-                                            <Label htmlFor="venue" className="group-focus-within:text-rose-600 transition-colors duration-200">Wedding Venue</Label>
+                                            <Label htmlFor="venue" className="group-focus-within:text-yellow-600 transition-colors duration-200">Wedding Venue</Label>
                                             <Input
                                                 id="venue"
                                                 name="venue"
                                                 value={formData.venue}
                                                 onChange={handleInputChange}
-                                                className="mt-1 transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                                 placeholder="Venue name or location"
                                             />
                                         </div>
                                         <div className="group">
-                                            <Label htmlFor="package" className="group-focus-within:text-rose-600 transition-colors duration-200">Interested Package</Label>
+                                            <Label htmlFor="package" className="group-focus-within:text-yellow-600 transition-colors duration-200">Interested Package</Label>
                                             <select
                                                 id="package"
                                                 name="package"
                                                 value={formData.package}
                                                 onChange={handleInputChange}
-                                                className="mt-1 w-full h-10 px-3 py-2 text-sm rounded-md border border-input bg-background transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                                className="mt-1 w-full h-10 px-3 py-2 text-sm rounded-md border border-input bg-background transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             >
                                                 <option value="">Select a package</option>
                                                 <option value="essential">Essential - ₹25,000</option>
@@ -474,21 +474,21 @@ const PFWedding = () => {
                                     </div>
 
                                     <div className="group">
-                                        <Label htmlFor="message" className="group-focus-within:text-rose-600 transition-colors duration-200">Tell us about your wedding</Label>
+                                        <Label htmlFor="message" className="group-focus-within:text-yellow-600 transition-colors duration-200">Tell us about your wedding</Label>
                                         <textarea
                                             id="message"
                                             name="message"
                                             rows={4}
                                             value={formData.message}
                                             onChange={handleInputChange}
-                                            className="mt-1 w-full px-3 py-2 text-sm rounded-md border border-input bg-background transition-all duration-200 focus:ring-rose-500 focus:border-rose-500 hover:border-rose-300"
+                                            className="mt-1 w-full px-3 py-2 text-sm rounded-md border border-input bg-background transition-all duration-200 focus:ring-yellow-500 focus:border-yellow-500 hover:border-yellow-300"
                                             placeholder="Share your vision, style preferences, special requests..."
                                         />
                                     </div>
 
                                     <Button
                                         type="submit"
-                                        className="w-full bg-gradient-to-r from-rose-600 to-rose-700 hover:from-rose-700 hover:to-rose-800 transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                                        className="w-full bg-gradient-to-r from-yellow-600 to-black hover:from-yellow-700 hover:to-slate-900 text-white transform transition-all duration-300 hover:scale-105 hover:shadow-lg"
                                     >
                                         Send Inquiry
                                     </Button>
@@ -500,19 +500,19 @@ const PFWedding = () => {
                         <div className="space-y-8">
                             <Card className="animate-fade-in hover:shadow-lg transition-all duration-300 group" style={{ animationDelay: '0.4s' }}>
                                 <CardHeader>
-                                    <CardTitle className="text-xl text-gray-900 group-hover:text-rose-700 transition-colors duration-300">Contact Information</CardTitle>
+                                    <CardTitle className="text-xl text-gray-900 group-hover:text-yellow-700 transition-colors duration-300">Contact Information</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-center group/item">
-                                        <Phone className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
-                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">+91 9876543210</span>
+                                        <Phone className="w-5 h-5 text-yellow-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">+91 7012790850</span>
                                     </div>
                                     <div className="flex items-center group/item">
-                                        <Mail className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <Mail className="w-5 h-5 text-yellow-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
                                         <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">pfruitmedia@gmail.com</span>
                                     </div>
                                     <div className="flex items-center group/item">
-                                        <MapPin className="w-5 h-5 text-rose-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <MapPin className="w-5 h-5 text-yellow-600 mr-3 group-hover/item:scale-110 transition-transform duration-200" />
                                         <span className="text-gray-700 group-hover/item:text-gray-900 transition-colors duration-200">Kerala</span>
                                     </div>
                                 </CardContent>
@@ -520,27 +520,27 @@ const PFWedding = () => {
 
                             <Card className="animate-fade-in hover:shadow-lg transition-all duration-300 group" style={{ animationDelay: '0.6s' }}>
                                 <CardHeader>
-                                    <CardTitle className="text-xl text-gray-900 group-hover:text-rose-700 transition-colors duration-300">Why Choose PF Wedding?</CardTitle>
+                                    <CardTitle className="text-xl text-gray-900 group-hover:text-yellow-700 transition-colors duration-300">Why Choose PF Wedding?</CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
                                     <div className="flex items-start group/item">
-                                        <Camera className="w-5 h-5 text-rose-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <Camera className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
                                         <div>
-                                            <h4 className="font-medium text-gray-900 group-hover/item:text-rose-700 transition-colors duration-200">Cinematic Style</h4>
+                                            <h4 className="font-medium text-gray-900 group-hover/item:text-yellow-700 transition-colors duration-200">Cinematic Style</h4>
                                             <p className="text-sm text-gray-600">Film-inspired approach with artistic flair</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start group/item">
-                                        <Film className="w-5 h-5 text-rose-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <Film className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
                                         <div>
-                                            <h4 className="font-medium text-gray-900 group-hover/item:text-rose-700 transition-colors duration-200">Full Service</h4>
+                                            <h4 className="font-medium text-gray-900 group-hover/item:text-yellow-700 transition-colors duration-200">Full Service</h4>
                                             <p className="text-sm text-gray-600">Photography and videography in one package</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start group/item">
-                                        <Heart className="w-5 h-5 text-rose-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
+                                        <Heart className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 group-hover/item:scale-110 transition-transform duration-200" />
                                         <div>
-                                            <h4 className="font-medium text-gray-900 group-hover/item:text-rose-700 transition-colors duration-200">Personal Touch</h4>
+                                            <h4 className="font-medium text-gray-900 group-hover/item:text-yellow-700 transition-colors duration-200">Personal Touch</h4>
                                             <p className="text-sm text-gray-600">Every couple gets a unique, personalized experience</p>
                                         </div>
                                     </div>

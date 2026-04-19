@@ -93,30 +93,30 @@ Looking forward to hearing from you!`;
         {
             icon: Phone,
             title: "Phone",
-            info: "+91 9876543210",
+            info: "+91 7012790850",
             subtitle: "Call us anytime",
-            color: "text-blue-600"
+            color: "text-yellow-600"
         },
         {
             icon: Mail,
             title: "Email",
             info: "hello@pfproductions.com",
             subtitle: "Drop us a line",
-            color: "text-green-600"
+            color: "text-yellow-700"
         },
         {
             icon: MapPin,
             title: "Location",
             info: "Kerala",
             subtitle: "",
-            color: "text-purple-600"
+            color: "text-yellow-600"
         },
         {
             icon: Clock,
             title: "Business Hours",
             info: "Mon - Fri: 9AM - 6PM",
             subtitle: "Weekend by appointment",
-            color: "text-orange-600"
+            color: "text-yellow-700"
         }
     ];
 
@@ -185,7 +185,7 @@ Looking forward to hearing from you!`;
                                     className="text-center p-6 border-0 shadow-lg hover:shadow-xl bg-white/80 backdrop-blur-sm transform hover:scale-105 transition-all duration-300 animate-fade-in"
                                     style={{ animationDelay: `${index * 0.1}s` }}
                                 >
-                                    <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <div className="w-16 h-16 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-full flex items-center justify-center mx-auto mb-4">
                                         <Icon className={`w-8 h-8 ${item.color}`} />
                                     </div>
                                     <h3 className="text-lg font-bold text-slate-800 mb-2">{item.title}</h3>
@@ -223,7 +223,7 @@ Looking forward to hearing from you!`;
                                                     onChange={handleInputChange}
                                                     required
                                                     placeholder="John Doe"
-                                                    className="border-2 focus:border-blue-500 transition-colors duration-300"
+                                                    className="border-2 focus:border-yellow-500 transition-colors duration-300"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -236,7 +236,7 @@ Looking forward to hearing from you!`;
                                                     onChange={handleInputChange}
                                                     required
                                                     placeholder="john@example.com"
-                                                    className="border-2 focus:border-blue-500 transition-colors duration-300"
+                                                    className="border-2 focus:border-yellow-500 transition-colors duration-300"
                                                 />
                                             </div>
                                         </div>
@@ -249,8 +249,8 @@ Looking forward to hearing from you!`;
                                                     name="phone"
                                                     value={formData.phone}
                                                     onChange={handleInputChange}
-                                                    placeholder="+91 9876543210"
-                                                    className="border-2 focus:border-blue-500 transition-colors duration-300"
+                                                    placeholder="+91 7012790850"
+                                                    className="border-2 focus:border-yellow-500 transition-colors duration-300"
                                                 />
                                             </div>
                                             <div className="space-y-2">
@@ -260,7 +260,7 @@ Looking forward to hearing from you!`;
                                                     name="service"
                                                     value={formData.service}
                                                     onChange={handleInputChange}
-                                                    className="w-full h-10 rounded-md border-2 border-input bg-background px-3 py-2 text-sm ring-offset-background focus:border-blue-500 transition-colors duration-300"
+                                                    className="w-full h-10 rounded-md border-2 border-input bg-background px-3 py-2 text-sm ring-offset-background focus:border-yellow-500 transition-colors duration-300"
                                                 >
                                                     <option value="">Select a service</option>
                                                     {services.map((service) => (
@@ -279,7 +279,7 @@ Looking forward to hearing from you!`;
                                                 onChange={handleInputChange}
                                                 required
                                                 placeholder="What's this about?"
-                                                className="border-2 focus:border-blue-500 transition-colors duration-300"
+                                                className="border-2 focus:border-yellow-500 transition-colors duration-300"
                                             />
                                         </div>
 
@@ -293,14 +293,14 @@ Looking forward to hearing from you!`;
                                                 required
                                                 placeholder="Tell us about your project, timeline, and any specific requirements..."
                                                 rows={6}
-                                                className="border-2 focus:border-blue-500 transition-colors duration-300"
+                                                className="border-2 focus:border-yellow-500 transition-colors duration-300"
                                             />
                                         </div>
 
                                         <Button
                                             type="submit"
                                             size="lg"
-                                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white transform hover:scale-105 transition-all duration-300"
+                                            className="w-full bg-gradient-to-r from-yellow-600 to-black hover:from-yellow-700 hover:to-slate-900 text-white transform hover:scale-105 transition-all duration-300"
                                         >
                                             <Send className="mr-2 h-5 w-5" />
                                             Send Message
@@ -314,13 +314,13 @@ Looking forward to hearing from you!`;
                         <div className="space-y-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
                             {/* Map Placeholder */}
                             <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm overflow-hidden">
-                                <div className="h-64 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                                <div className="h-64 bg-gradient-to-br from-yellow-100 to-yellow-200 flex items-center justify-center">
                                     <div className="text-center">
-                                        <MapPin className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+                                        <MapPin className="w-12 h-12 text-yellow-600 mx-auto mb-4" />
                                         <h3 className="text-xl font-bold text-slate-800 mb-2">Our Location</h3>
                                         <p className="text-slate-600">Kerala</p>
                                         {/* <p className="text-slate-600">Los Angeles, CA 90210</p> */}
-                                        <Button variant="outline" className="mt-4 hover:bg-blue-50">
+                                        <Button variant="outline" className="mt-4 hover:bg-yellow-50 border-yellow-600 text-yellow-600 hover:text-yellow-700">
                                             Get Directions
                                             <ArrowRight className="ml-2 h-4 w-4" />
                                         </Button>
@@ -343,8 +343,8 @@ Looking forward to hearing from you!`;
                                         const Icon = item.icon;
                                         return (
                                             <div key={item.label} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-slate-50 transition-colors duration-300">
-                                                <div className="w-10 h-10 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center">
-                                                    <Icon className="w-5 h-5 text-blue-600" />
+                                                <div className="w-10 h-10 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-full flex items-center justify-center">
+                                                    <Icon className="w-5 h-5 text-yellow-700" />
                                                 </div>
                                                 <div>
                                                     <div className="text-2xl font-bold text-slate-800">{item.stat}</div>
@@ -361,7 +361,7 @@ Looking forward to hearing from you!`;
             </section>
 
             {/* FAQ Section */}
-            <section ref={faqRef} className="py-16 px-4 bg-gradient-to-r from-slate-100 to-blue-50 scroll-animate">
+            <section ref={faqRef} className="py-16 px-4 bg-gradient-to-r from-slate-100 to-yellow-50 scroll-animate">
                 <div className="container mx-auto">
                     <div className="text-center mb-12 animate-fade-in">
                         <h2 className="text-4xl font-bold text-slate-800 mb-4">Frequently Asked Questions</h2>
@@ -405,20 +405,20 @@ Looking forward to hearing from you!`;
             </section>
 
             {/* CTA Section */}
-            <section className="py-16 px-4 bg-gradient-to-r from-slate-900 via-slate-800 to-black">
-                <div className="container mx-auto text-center text-white">
+            <section className="py-20 bg-gradient-to-br from-yellow-50 via-yellow-100/30 to-yellow-200/20 text-gray-900 relative overflow-hidden">
+                <div className="container mx-auto text-center text-black">
                     <div className="animate-fade-in">
-                        <h2 className="text-4xl font-bold mb-4">Ready to Start Your Project?</h2>
+                        <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-black via-yellow-700 to-gray-800 bg-clip-text text-transparent">Ready to Start Your Project?</h2>
                         <p className="text-xl mb-8 opacity-90">Let's create something amazing together. Get in touch today!</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <a href={`tel:+${import.meta.env.VITE_WHATSAPP_NUMBER}`}>
-                                <Button size="lg" variant="secondary" className="px-8 py-6 text-lg bg-yellow-600 text-white hover:bg-yellow-700 transform hover:scale-105 transition-all duration-300">
+                                <Button size="lg" variant="secondary" className="bg-black text-white hover:from-yellow-400 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700">
                                     <Phone className="mr-2 h-5 w-5" />
                                     Call Now
                                 </Button>
                             </a>
                             <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL}?subject=Project Enquiry&body=Hello PF Media,%0A%0AI would like to discuss my project with you.%0A%0APlease let me know about your services and availability.%0A%0AThank you!`}>
-                                <Button size="lg" variant="outline" className="px-8 py-6 text-lg border-yellow-600 text-yellow-600 hover:bg-yellow-600 hover:text-white transform hover:scale-105 transition-all duration-300">
+                                <Button size="lg" variant="outline" className="border border-yellow-600 text-yellow-600 hover:scale-105 hover:shadow-lg hover:text-white hover:bg-gradient-to-r hover:from-yellow-400 hover:to-yellow-700 duration-300">
                                     <Mail className="mr-2 h-5 w-5" />
                                     Email Us
                                 </Button>

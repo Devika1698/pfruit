@@ -149,7 +149,7 @@ const Home = () => {
             {/* Hero Section */}
             <section className="relative h-screen flex items-center justify-center overflow-hidden">
                 {/* Background Image */}
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
                         backgroundImage: `url(${bg})`
@@ -291,13 +291,6 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* Face Recognition Gallery Section */}
-            {!galleryLoading && galleryImages.length > 0 && (
-                <div ref={faceRecognitionRef} id="face-recognition-section">
-                    <FaceRecognitionGallery galleryImages={galleryImages} />
-                </div>
-            )}
-
             {/* Portfolio Showcase */}
             <section ref={portfolioRef} id="latest-work" className="py-20 bg-gradient-to-br from-gray-50 via-yellow-50/20 to-black/5 relative overflow-hidden">
                 {/* Background decorative elements */}
@@ -415,6 +408,13 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Face Recognition Gallery Section */}
+            {!galleryLoading && galleryImages.length > 0 && (
+                <div ref={faceRecognitionRef} id="face-recognition-section">
+                    <FaceRecognitionGallery galleryImages={galleryImages} />
+                </div>
+            )}
 
             {/* Contact CTA */}
             <section className="py-20 bg-gradient-to-br from-yellow-50 via-yellow-100/30 to-yellow-200/20 text-gray-900 relative overflow-hidden">

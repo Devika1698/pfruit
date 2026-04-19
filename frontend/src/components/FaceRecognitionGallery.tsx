@@ -32,7 +32,7 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
   const [selectedPhoto, setSelectedPhoto] = useState<MatchedPhoto | null>(null);
   const [processingProgress, setProcessingProgress] = useState(0);
   const [processedCount, setProcessedCount] = useState(0);
-  
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadedImageRef = useRef<HTMLImageElement>(null);
 
@@ -184,7 +184,7 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
 
   if (modelsLoading) {
     return (
-      <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <section className="py-20 bg-gradient-to-br from-yellow-50 via-yellow-100/30 to-yellow-200/20">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <Loader className="w-12 h-12 animate-spin text-blue-600 mx-auto mb-4" />
@@ -197,7 +197,7 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
   }
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+    <section className="py-20 bg-gradient-to-br from-yellow-50 via-yellow-100/30 to-yellow-200/20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
@@ -325,140 +325,140 @@ const FaceRecognitionGallery = ({ galleryImages }: FaceRecognitionGalleryProps) 
 
             {/* Results Section */}
             {matchedPhotos.length > 0 && searched && (
-            <div className="space-y-6">
-              {loading && (
-                <Card>
-                  <CardContent className="pt-6">
-                    <div className="space-y-3">
-                      <div className="flex items-center justify-between">
-                        <p className="text-sm font-medium text-gray-700">
-                          Processing images...
-                        </p>
-                        <p className="text-sm text-gray-600">
-                          {processedCount} / {galleryImages.length}
+              <div className="space-y-6">
+                {loading && (
+                  <Card>
+                    <CardContent className="pt-6">
+                      <div className="space-y-3">
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-medium text-gray-700">
+                            Processing images...
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {processedCount} / {galleryImages.length}
+                          </p>
+                        </div>
+                        <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
+                            style={{ width: `${processingProgress}%` }}
+                          />
+                        </div>
+                        <p className="text-xs text-gray-500 text-center">
+                          {processingProgress}% complete
                         </p>
                       </div>
-                      <div className="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-gradient-to-r from-blue-400 to-blue-600 transition-all duration-300"
-                          style={{ width: `${processingProgress}%` }}
-                        />
-                      </div>
-                      <p className="text-xs text-gray-500 text-center">
-                        {processingProgress}% complete
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              )}
-              {searched && (
-                <>
-                  {matchedPhotos.length > 0 ? (
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="flex items-center justify-between">
-                          <span>Matching Photos ({matchedPhotos.length})</span>
-                          <Badge variant="secondary">
-                            {(matchedPhotos[0]?.similarity * 100).toFixed(1)}% match
-                          </Badge>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3 max-h-96 overflow-y-auto">
-                          {matchedPhotos.map((photo) => (
-                            <div
-                              key={photo.id}
-                              className="flex items-center gap-4 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition"
-                              onClick={() => setSelectedPhoto(photo)}
-                            >
-                              <div className="w-16 h-16 rounded overflow-hidden flex-shrink-0">
-                                <img
-                                  src={photo.src}
-                                  alt={photo.alt}
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <p className="font-medium text-gray-900 truncate">
-                                  {photo.alt}
-                                </p>
-                                <div className="flex items-center gap-2 mt-1">
-                                  <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
-                                    <div
-                                      className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
-                                      style={{
-                                        width: `${photo.similarity * 100}%`,
-                                      }}
-                                    />
+                    </CardContent>
+                  </Card>
+                )}
+                {searched && (
+                  <>
+                    {matchedPhotos.length > 0 ? (
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="flex items-center justify-between">
+                            <span>Matching Photos ({matchedPhotos.length})</span>
+                            <Badge variant="secondary">
+                              {(matchedPhotos[0]?.similarity * 100).toFixed(1)}% match
+                            </Badge>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3 max-h-96 overflow-y-auto">
+                            {matchedPhotos.map((photo) => (
+                              <div
+                                key={photo.id}
+                                className="flex items-center gap-4 p-3 border rounded-lg hover:bg-gray-50 cursor-pointer transition"
+                                onClick={() => setSelectedPhoto(photo)}
+                              >
+                                <div className="w-16 h-16 rounded overflow-hidden flex-shrink-0">
+                                  <img
+                                    src={photo.src}
+                                    alt={photo.alt}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-medium text-gray-900 truncate">
+                                    {photo.alt}
+                                  </p>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                      <div
+                                        className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
+                                        style={{
+                                          width: `${photo.similarity * 100}%`,
+                                        }}
+                                      />
+                                    </div>
+                                    <span className="text-sm font-semibold text-gray-700 min-w-fit">
+                                      {(photo.similarity * 100).toFixed(1)}%
+                                    </span>
                                   </div>
-                                  <span className="text-sm font-semibold text-gray-700 min-w-fit">
-                                    {(photo.similarity * 100).toFixed(1)}%
-                                  </span>
                                 </div>
                               </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ) : (
-                    <Card>
-                      <CardContent className="pt-6">
-                        <div className="text-center space-y-3">
-                          <AlertCircle className="w-12 h-12 text-gray-400 mx-auto" />
-                          <p className="text-gray-600 font-medium">No matching photos found</p>
-                          <p className="text-gray-500 text-sm">
-                            Try adjusting the sensitivity level or upload a clearer photo
-                          </p>
-                          <Button
-                            onClick={handleReset}
-                            variant="outline"
-                            size="sm"
-                          >
-                            Try Again
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  )}
-                </>
-              )}
-            </div>
+                            ))}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ) : (
+                      <Card>
+                        <CardContent className="pt-6">
+                          <div className="text-center space-y-3">
+                            <AlertCircle className="w-12 h-12 text-gray-400 mx-auto" />
+                            <p className="text-gray-600 font-medium">No matching photos found</p>
+                            <p className="text-gray-500 text-sm">
+                              Try adjusting the sensitivity level or upload a clearer photo
+                            </p>
+                            <Button
+                              onClick={handleReset}
+                              variant="outline"
+                              size="sm"
+                            >
+                              Try Again
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    )}
+                  </>
+                )}
+              </div>
             )}
 
-          {/* Full Image Preview Modal */}
-          {selectedPhoto && (
-            <div
-              className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
-              onClick={() => setSelectedPhoto(null)}
-            >
+            {/* Full Image Preview Modal */}
+            {selectedPhoto && (
               <div
-                className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden shadow-2xl"
-                onClick={(e) => e.stopPropagation()}
+                className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
+                onClick={() => setSelectedPhoto(null)}
               >
-                <button
-                  onClick={() => setSelectedPhoto(null)}
-                  className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center z-10 transition-colors"
+                <div
+                  className="relative max-w-4xl w-full bg-white rounded-lg overflow-hidden shadow-2xl"
+                  onClick={(e) => e.stopPropagation()}
                 >
-                  <X className="w-6 h-6" />
-                </button>
-                <img
-                  src={selectedPhoto.src}
-                  alt={selectedPhoto.alt}
-                  className="w-full h-auto max-h-[90vh] object-contain"
-                />
-                <div className="absolute bottom-4 left-4 right-4 flex gap-3 justify-center">
-                  <Button
-                    onClick={() => handleDownload(selectedPhoto)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  <button
+                    onClick={() => setSelectedPhoto(null)}
+                    className="absolute top-4 right-4 bg-red-500 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center z-10 transition-colors"
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
-                  </Button>
+                    <X className="w-6 h-6" />
+                  </button>
+                  <img
+                    src={selectedPhoto.src}
+                    alt={selectedPhoto.alt}
+                    className="w-full h-auto max-h-[90vh] object-contain"
+                  />
+                  <div className="absolute bottom-4 left-4 right-4 flex gap-3 justify-center">
+                    <Button
+                      onClick={() => handleDownload(selectedPhoto)}
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Download className="w-4 h-4 mr-2" />
+                      Download
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
           </div>
         </div>
       </div>
